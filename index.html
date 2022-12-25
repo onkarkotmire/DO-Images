@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dog Images</title>
+    <style>
+       *{
+        box-sizing: border-box;
+        margin: 0;
+       }
+       body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+       }
+       .main_container{
+        width: 60vw;
+        height: 80vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+       }
+       .dog_images{
+        width: 90%;
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       }
+       button{
+        width: 150px;
+        height: 50px;
+        background-color: blue;
+        color: white;
+        font-size: 22px;
+        border: none;
+
+       }
+       h1{
+        color: red;
+       }
+    button:hover{
+        background-color: aqua;
+        color: black;
+    }
+    #dog_img{
+        width: 70%;
+        height: 95%;
+    }
+    #h1{
+        border: 2px solid black;
+        height: 10%;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="main_container">
+      <div id="h1"><h1>Know about Species of Dogs</h1></div>
+      <div class="dog_images">
+      
+      </div>
+      <button>Click Here</button>
+    </div>
+
+
+    <script>
+   const button = document.getElementsByTagName("button")[0];
+   const dog_img = document.getElementById("dog_img");
+   const dog_images = document.getElementsByClassName("dog_images")[0];
+
+   init();
+   function init(){
+    getimage();
+   }
+
+   button.addEventListener("click", getimage);
+
+   async function getimage(){
+      const streamResponse = await fetch('https://dog.ceo/api/breeds/image/random');
+      const textBody = await streamResponse.text();
+      const jsonData = JSON.parse(textBody);
+      dog_images.innerHTML = `<img src="${jsonData.message}" alt="" id="dog_img">` 
+   }
+
+    </script>
+</body>
+</html>
